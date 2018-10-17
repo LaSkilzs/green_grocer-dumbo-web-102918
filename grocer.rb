@@ -12,6 +12,7 @@ end
 
 def apply_coupons(cart, coupons)
   result = Hash.new
+<<<<<<< HEAD
 
   count = 0
     cart.each do |key, hash|
@@ -23,6 +24,16 @@ def apply_coupons(cart, coupons)
         end
       end
       count = 0
+=======
+    cart.each do |key, hash|
+      coupons.each do |hash|
+        if hash[:item] == key
+        result[key + " W/COUPON" ]= {:price => hash[:cost], :clearance => cart[key][:clearance], :count=> cart[key][:count]-hash[:num]}
+        binding.pry
+         cart[key][:count] -= hash[:num]
+        end
+      end
+>>>>>>> e2ffd5300eef797f2b1362678a5a1f098af6901e
     end
   cart.merge(result)
 end
@@ -45,6 +56,7 @@ def checkout(cart, coupons)
   result = apply_clearance(cart_coupons)
   keys = result.keys
   total = 0.0
+<<<<<<< HEAD
   keys.each do |string|
     if result[string][:count] > 0
       total += result[string][:price] * result[string][:count]
@@ -55,6 +67,13 @@ def checkout(cart, coupons)
   if total > 100
     discount = total * 0.10
     total -= discount
+=======
+  keys.each{|string|total += result[string][:price]  if result[string][:price]}
+  
+  if total > 100 
+    discount = total * 0.10 
+    total += discount
+>>>>>>> e2ffd5300eef797f2b1362678a5a1f098af6901e
   end
   total
 end
